@@ -30,7 +30,23 @@ class Book(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
-        return f'{self.id} {self.title} {self.authors.name}'
+        return f'{self.id} {self.title} {self.authors.name}, {self.tags}'
+
+    def display_tags(self):
+        """
+        Creates a string for the Tags. This is required to display genre in Admin.
+        """
+        return ', '.join([tag.title for tag in self.tags.all()[:3]])
+
+    display_tags.short_description = 'Tags'
+
+    def display_authors(self):
+        """
+        Creates a string for the Tags. This is required to display genre in Admin.
+        """
+        return ', '.join([author.name for author in self.authors.all()[:3]])
+
+    display_authors.short_description = 'Authors'
 
     class Meta:
         ordering = ('title',)

@@ -4,16 +4,16 @@ from django.contrib.admin import ModelAdmin
 from library.models import Book, Author, Tag
 
 
-@admin.register(Book)
-class BookAdmin(ModelAdmin):
-    pass
-
-
 @admin.register(Author)
-class BookAdmin(ModelAdmin):
-    pass
+class AuthorAdmin(ModelAdmin):
+    list_display = ('name', 'year_of_birth')
 
 
 @admin.register(Tag)
-class BookAdmin(ModelAdmin):
+class TagAdmin(ModelAdmin):
     pass
+
+
+@admin.register(Book)
+class BookAdmin(ModelAdmin):
+    list_display = ('title', 'display_authors', 'display_tags')

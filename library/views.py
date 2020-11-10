@@ -15,7 +15,7 @@ class BookViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     filter_fields = ['title', 'pages']
     search_fields = ['title', 'pages']
-    order_fields = ['title', 'pages', 'authors.name']
+    order_fields = ['title', 'pages']
 
 
 class AuthorViewSet(ModelViewSet):
