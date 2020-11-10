@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
-from library.views import BookViewSet, AuthorViewSet, auth
+from library.views import BookViewSet, AuthorViewSet, auth, TagViewSet
 
 router = SimpleRouter()
 
 router.register(r'book', BookViewSet)
 router.register(r'author', AuthorViewSet)
+router.register(r'tag', TagViewSet)
 
 
 urlpatterns = [

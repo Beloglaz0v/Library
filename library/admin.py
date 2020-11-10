@@ -16,4 +16,5 @@ class TagAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
+    filter_horizontal = ('authors', 'tags',)
     list_display = ('title', 'display_authors', 'display_tags')

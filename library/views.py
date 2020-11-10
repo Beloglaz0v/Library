@@ -13,9 +13,9 @@ class BookViewSet(ModelViewSet):
     serializer_class = BooksSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     permission_classes = [IsAuthenticated]
-    filter_fields = ['title', 'pages']
-    search_fields = ['title', 'pages']
-    order_fields = ['title', 'pages']
+    # filter_fields = ['title', 'pages']
+    # search_fields = ['title', 'pages']
+    # order_fields = ['title', 'pages']
 
 
 class AuthorViewSet(ModelViewSet):
