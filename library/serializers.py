@@ -15,7 +15,7 @@ class TagsSerializer(ModelSerializer):
 
 
 class BooksSerializer(ModelSerializer):
-    authors = AuthorsSerializer(many=True, read_only=True)
+    # authors = AuthorsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Book

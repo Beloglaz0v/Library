@@ -6,8 +6,8 @@ from library.models import Book, Author, Tag
 
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
-    list_display = ('id', 'name', 'year_of_birth')
-
+    # list_display = ('id', 'name', 'year_of_birth')
+    pass
 
 @admin.register(Tag)
 class TagAdmin(ModelAdmin):
@@ -16,5 +16,6 @@ class TagAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
-    filter_horizontal = ('authors', 'tags',)
-    list_display = ('title', 'display_authors', 'display_tags')
+    pass
+    # filter_horizontal = ('authors', 'tags',)
+    # list_display = ('title', 'display_authors', 'display_tags')

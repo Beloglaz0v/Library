@@ -21,9 +21,9 @@ from library.views import BookViewSet, AuthorViewSet, auth, TagViewSet
 
 router = DefaultRouter()
 
-router.register(r'book', BookViewSet)
-router.register(r'author', AuthorViewSet)
-router.register(r'tag', TagViewSet)
+router.register(r'books', BookViewSet)
+router.register(r'authors', AuthorViewSet)
+router.register(r'tags', TagViewSet)
 
 
 urlpatterns = [

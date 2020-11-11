@@ -42,7 +42,7 @@ class AuthorViewSet(ModelViewSet):
     @action(detail=True, methods=["GET"])
     def books(self, request, pk=None):
         author = self.get_object()
-        books = Book.objects.filter(authors=author)
+        books = Book.objects.filter(author=author)
         serializer = BooksSerializer(books, many=True)
         return Response(serializer.data, status=200)
 
