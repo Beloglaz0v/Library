@@ -14,6 +14,10 @@ class Author(models.Model):
     class Meta:
         ordering = ('name',)
 
+    @property
+    def books(self):
+        return self.book_set.all()
+
 
 class Tag(models.Model):
     title = models.CharField(max_length=150)

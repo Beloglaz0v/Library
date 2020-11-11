@@ -1,5 +1,4 @@
 """DLibrary URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -16,11 +15,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import SimpleRouter
+from rest_framework.routers import SimpleRouter, DefaultRouter
 
 from library.views import BookViewSet, AuthorViewSet, auth, TagViewSet
 
-router = SimpleRouter()
+router = DefaultRouter()
 
 router.register(r'book', BookViewSet)
 router.register(r'author', AuthorViewSet)
