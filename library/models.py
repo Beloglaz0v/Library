@@ -18,9 +18,6 @@ class Book(models.Model):
     # authors = models.ManyToManyField(Author)
     tags = models.ManyToManyField(Tag, blank=True)
 
-    def __str__(self):
-        return f'{self.id} {self.title} , {self.tags}'
-
     def display_tags(self):
         """
         Creates a string for the Tags. This is required to display genre in Admin.
@@ -29,13 +26,8 @@ class Book(models.Model):
 
     display_tags.short_description = 'Tags'
 
-    # def display_authors(self):
-    #     """
-    #     Creates a string for the Tags. This is required to display genre in Admin.
-    #     """
-    #     return ', '.join([author.name for author in self.authors.all()[:3]])
-
-    # display_authors.short_description = 'Authors'
+    def __str__(self):
+        return f'{self.id} {self.title} , {self.display_tags()}'
 
     class Meta:
         ordering = ('title',)
@@ -44,7 +36,7 @@ class Book(models.Model):
 class Author(models.Model):
     name = models.CharField(max_length=100)
     year_of_birth = models.IntegerField(blank=True)
-    book = models.ManyToManyField(Book)
+    books = models.ManyToManyField(Book)
 
     def __str__(self):
         return f'{self.id} {self.name}'

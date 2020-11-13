@@ -16,20 +16,33 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter, DefaultRouter
+from rest_framework_nested import routers
 
-from library.views import BookViewSet, AuthorViewSet, auth, TagViewSet
+from library.views import BookViewSet, AuthorViewSet, TagViewSet, SearchBooks
 
-router = DefaultRouter()
 
-router.register(r'books', BookViewSet)
-router.register(r'authors', AuthorViewSet)
-router.register(r'tags', TagViewSet)
+router = routers.DefaultRouter()
+router.register(r'tags', TagViewSet, basename='tags')
+router.register(r'authors', AuthorViewSet, basename='authors')
+router.register(r'books', BookViewSet, basename='books')
+router.register(r'search_books', SearchBooks, basename='search_books')
+
+tag_router = routers.NestedDefaultRouter(router, r'tags', lookup='tag')
+tag_router.register(r'books', BookViewSet, basename='books')
+
+author_router = routers.NestedDefaultRouter(router, r'authors', lookup='author')
+author_router.register(r'books', BookViewSet, basename='books')
+
+book_router = routers.NestedDefaultRouter(router, r'books', lookup='book')
+book_router.register(r'authors', AuthorViewSet, basename='author')
+book_router.register(r'tags', TagViewSet, basename='tag')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('', include('social_django.urls', namespace='social')),
-    path('auth/', auth)
+    url(r'^', include(router.urls)),
+    url(r'^', include(tag_router.urls)),
+    url(r'^', include(book_router.urls)),
+    url(r'^', include(author_router.urls)),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
-
-urlpatterns += router.urls
