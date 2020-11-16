@@ -6,7 +6,7 @@ from django.db import models
 
 class Tag(models.Model):
     title = models.CharField(max_length=150)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
         return f'{self.id} {self.title}'
@@ -36,7 +36,7 @@ class Book(models.Model):
 class Author(models.Model):
     name = models.CharField(max_length=100)
     year_of_birth = models.IntegerField(blank=True)
-    books = models.ManyToManyField(Book)
+    books = models.ManyToManyField(Book, blank=True)
 
     def __str__(self):
         return f'{self.id} {self.name}'

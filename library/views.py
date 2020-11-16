@@ -1,9 +1,7 @@
-from django.shortcuts import render, get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, generics
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -15,10 +13,10 @@ class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BooksSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    # permission_classes = [IsAuthenticated]
-    filter_fields = ['title', 'pages', 'tags']
-    search_fields = ['title', 'pages', 'tags']
-    order_fields = ['title', 'pages', 'tags']
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_fields = ['title', 'pages']
+    search_fields = ['title', 'pages']
+    order_fields = ['title', 'pages']
 
     @action(detail=True, methods=["GET"])
     def authors(self, request, pk=None, tag_pk=None):
@@ -38,7 +36,11 @@ class BookViewSet(ModelViewSet):
 class AuthorViewSet(ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorsSerializer
-    # permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    permission_classes = [IsAuthenticated]
+    search_fields = ['name', 'year_of_birth']
+    order_fields = ['name', 'year_of_birth']
+    filter_fields = ['name', 'year_of_birth', 'books']
 
     @action(detail=True, methods=["GET"])
     def books(self, request, pk=None,):
@@ -51,7 +53,7 @@ class AuthorViewSet(ModelViewSet):
 class TagViewSet(ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagsSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=["GET"])
     def books(self, request, pk=None):
